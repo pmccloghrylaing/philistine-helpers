@@ -1,0 +1,9 @@
+[Bb]in/
+[Oo]bj/
+TestResults/
+*.suo
+*.user
+*.userprefs
+
+packages
+!packages/repositories.config
