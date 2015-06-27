@@ -25,10 +25,12 @@ namespace Philistine
 			Visit(expression);
 
 			predicate = Expression.Lambda<Predicate<T>>(
-				predicateConditions.Aggregate(default(Expression),
-					(acc, pc) => acc != null
-						? Expression.MakeBinary(ExpressionType.AndAlso, acc, pc)
-						: pc),
+				predicateConditions.Any()
+					? predicateConditions.Aggregate(default(Expression),
+						(acc, pc) => acc != null
+							? Expression.MakeBinary(ExpressionType.AndAlso, acc, pc)
+							: pc)
+					: Expression.Constant(true),
 				itemParameter).Compile();
 
 			selector = Expression.Lambda<Func<T, Delegate, TResult>>(

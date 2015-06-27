@@ -46,6 +46,12 @@ namespace Philistine.Helpers.Test.Switch
 					(x) => true)
 				.Default(x => false)
 				.Should().BeTrue();
+
+			Try.Success(1.0).Switch<ITry>()
+				.CaseConstructed((double d) => new Success<double>(d),
+					(x, d) => d)
+				.Default(x => 0)
+				.Should().Be(1.0);
 		}
 	}
 }
